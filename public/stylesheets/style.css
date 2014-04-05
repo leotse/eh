@@ -17,6 +17,8 @@ a {
 	width: 50%;
 }
 
-#search form .submit {
-	margin: 20px;
+#search form .submit, 
+#search form .source, 
+#search form .limit {
+	margin: 15px 15px 0 0
 }

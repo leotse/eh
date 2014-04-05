@@ -9,18 +9,18 @@ from discovery import *
 from lib import htmlExport
 from lib import hostchecker
 
-print "\n*******************************************************************"
-print "*                                                                 *"
-print "* | |_| |__   ___    /\  /\__ _ _ ____   _____  ___| |_ ___ _ __  *"
-print "* | __| '_ \ / _ \  / /_/ / _` | '__\ \ / / _ \/ __| __/ _ \ '__| *"
-print "* | |_| | | |  __/ / __  / (_| | |   \ V /  __/\__ \ ||  __/ |    *"  
-print "*  \__|_| |_|\___| \/ /_/ \__,_|_|    \_/ \___||___/\__\___|_|    *"
-print "*                                                                 *"
-print "* TheHarvester Ver. 2.2a                                          *"
-print "* Coded by Christian Martorella                                   *"
-print "* Edge-Security Research                                          *"
-print "* cmartorella@edge-security.com                                   *"
-print "*******************************************************************\n\n"
+#print "\n*******************************************************************"
+#print "*                                                                 *"
+#print "* | |_| |__   ___    /\  /\__ _ _ ____   _____  ___| |_ ___ _ __  *"
+#print "* | __| '_ \ / _ \  / /_/ / _` | '__\ \ / / _ \/ __| __/ _ \ '__| *"
+#print "* | |_| | | |  __/ / __  / (_| | |   \ V /  __/\__ \ ||  __/ |    *"  
+#print "*  \__|_| |_|\___| \/ /_/ \__,_|_|    \_/ \___||___/\__\___|_|    *"
+#print "*                                                                 *"
+#print "* TheHarvester Ver. 2.2a                                          *"
+#print "* Coded by Christian Martorella                                   *"
+#print "* Edge-Security Research                                          *"
+#print "* cmartorella@edge-security.com                                   *"
+#print "*******************************************************************\n\n"
 
 def usage():
 
@@ -97,13 +97,13 @@ def start(argv):
 		search=googlesearch.search_google(word,limit,start)
 		search.process()
 		all_emails=search.get_emails()
-		all_hosts=search.get_hostnames()
+		#all_hosts=search.get_hostnames()
 	if engine == "exalead":
 		print "[-] Searching in Exalead:"
 		search=exaleadsearch.search_exalead(word,limit,start)
 		search.process()
 		all_emails=search.get_emails()
-		all_hosts=search.get_hostnames()
+		#all_hosts=search.get_hostnames()
 	elif engine == "bing" or engine =="bingapi":	
 		print "[-] Searching in Bing:"
 		search=bingsearch.search_bing(word,limit,start)
@@ -113,19 +113,19 @@ def start(argv):
 			bingapi="no"
 		search.process(bingapi)
 		all_emails=search.get_emails()
-		all_hosts=search.get_hostnames()
+		# all_hosts=search.get_hostnames()
 	elif engine == "yandex":# Not working yet
 		print "[-] Searching in Yandex:"
 		search=yandexsearch.search_yandex(word,limit,start)
 		search.process()
 		all_emails=search.get_emails()
-		all_hosts=search.get_hostnames()
+		# all_hosts=search.get_hostnames()
 	elif engine == "pgp":
 		print "[-] Searching in PGP key server.."
 		search=pgpsearch.search_pgp(word)
 		search.process()
 		all_emails=search.get_emails()
-		all_hosts=search.get_hostnames()
+		# all_hosts=search.get_hostnames()
 	elif engine == "people123":
 		print "[-] Searching in 123People.."
 		search = people123.search_123people(word,limit)
@@ -171,7 +171,7 @@ def start(argv):
 	elif engine == "all":
 		print "Full harvest.."
 		all_emails=[]
-		all_hosts=[]
+		# all_hosts=[]
 		virtual = "basic"
 		print "[-] Searching in Google.."
 		search=googlesearch.search_google(word,limit,start)
@@ -179,13 +179,13 @@ def start(argv):
 		emails=search.get_emails()
 		hosts=search.get_hostnames()
 		all_emails.extend(emails)
-		all_hosts.extend(hosts)
+		# all_hosts.extend(hosts)
 		print "[-] Searching in PGP Key server.."
 		search=pgpsearch.search_pgp(word)
 		search.process()
 		emails=search.get_emails()
 		hosts=search.get_hostnames()
-		all_hosts.extend(hosts)
+		# all_hosts.extend(hosts)
 		all_emails.extend(emails)
 		print "[-] Searching in Bing.."
 		bingapi="no"
@@ -193,14 +193,14 @@ def start(argv):
 		search.process(bingapi)
 		emails=search.get_emails()
 		hosts=search.get_hostnames()
-		all_hosts.extend(hosts)
+		# all_hosts.extend(hosts)
 		all_emails.extend(emails)
 		print "[-] Searching in Exalead.."
 		search=exaleadsearch.search_exalead(word,limit,start)
 		search.process()
 		emails=search.get_emails()
 		hosts=search.get_hostnames()
-		all_hosts.extend(hosts)
+		# all_hosts.extend(hosts)
 		all_emails.extend(emails)
 	#Results############################################################
 	print "\n[+] Emails found:"
@@ -211,20 +211,20 @@ def start(argv):
 		for emails in all_emails:
 			print emails 
 
-	print "\n[+] Hosts found in search engines:"
-	print "------------------------------------"
-	if all_hosts == []:
-		print "No hosts found"
-	else:
-		full_host=hostchecker.Checker(all_hosts)
-		full=full_host.check()
-		for host in full:
-			ip=host.split(':')[0]
-			print host
-			if host_ip.count(ip.lower()):
-				pass
-			else:
-				host_ip.append(ip.lower())
+	# print "\n[+] Hosts found in search engines:"
+	# print "------------------------------------"
+	# if all_hosts == []:
+	# 	print "No hosts found"
+	# else:
+	# 	full_host=hostchecker.Checker(all_hosts)
+	# 	full=full_host.check()
+	# 	for host in full:
+	# 		ip=host.split(':')[0]
+	# 		print host
+	# 		if host_ip.count(ip.lower()):
+	# 			pass
+	# 		else:
+	# 			host_ip.append(ip.lower())
 	
 	#DNS reverse lookup#################################################
 	dnsrev=[]

@@ -4,6 +4,21 @@ block content
 	div(id="search") 
 		h1 Which domain would you like to search?
 		form(method="GET", action="/search")
-			input(type="text" name="query" class="query")
+			input(type="text" name="domain" class="query")
+			br
+			select(name="source" class="source")
+				option google
+				option(selected) bing
+				option pgp
+				option linkedin
+				option google-profiles
+				option people123
+				option jigsaw
+			select(name="limit" class="limit")
+				option 50
+				option 100
+				option(selected) 250
+				option 500
+				option 1000
 			br
 			input(type="submit" value="search" class="submit")

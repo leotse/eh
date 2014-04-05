@@ -17,13 +17,16 @@ exports.index = function(req, res){
 
 // route - start search
 exports.search = function(req, res) {
-	var query = req.query.query;
+	var query = req.query;
+	var domain = query.domain;
+	var source = query.source;
+	var limit = query.limit;
 
 	// query validation
-	if(!query) { return res.render('error', { message: 'query is required' }); }
+	if(!domain || !source || !limit) { return res.render('error', { message: 'domain, source and limit are required' }); }
 
 	// harvest emails
-	var stream = harvest(query);
+	var stream = harvest(domain, source, limit);
 
 	// return results
 	res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -31,10 +34,10 @@ exports.search = function(req, res) {
 }
 
 // helper - execute py script
-function harvest(domain) {
+function harvest(domain, source, limit) {
 
 	var script = path.join(__dirname, '../lib/theharvester/theHarvester.py');
-	var process = spawn('python', [ '-u', script, '-d', domain, '-l', '500', '-b', 'bing' ]);
+	var process = spawn('python', [ '-u', script, '-d', domain, '-b', source, '-l', limit ]);
 
 	// // debug messages
 	// process.stdout.on('data', function(d) {
