@@ -1,0 +1,22 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+/* custom styles */
+#search {
+	text-align: center;
+}
+
+#search form .query {	
+	width: 50%;
+}
+
+#search form .submit {
+	margin: 20px;
+}

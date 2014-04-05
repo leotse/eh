@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	div(id="search") 
+		h1 Which domain would you like to search?
+		form(method="GET", action="/search")
+			input(type="text" name="query" class="query")
+			br
+			input(type="submit" value="search" class="submit")
